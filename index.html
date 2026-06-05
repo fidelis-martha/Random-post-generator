@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: rebeccapurple;
+        color: #333;
+    }
+
+    .card {
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 15px;
+        width: 80%;
+        margin: 0 auto;
+        margin-bottom: 20px;
+        /* box-shadow: 2px 4px 8px rgba(0,0,0,0.1);
+        transition: transform 0.2s; */
+    }
+
+
+
+    .button-container {
+        /* position: sticky; */
+        top: 0;
+        /* background: #f4f4f9; */
+        padding: 20px;
+        z-index: 100;
+        text-align: center;
+    }
+
+    
+    .btn {
+        background-color: #010b16; 
+        color: white;
+        padding: 12px 24px;
+        border: 22px solid black;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    .btn:hover {
+        background-color: #0056b3; 
+    }
+
+    
+    .post {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-top: 20px;
+        padding: 20px;
+    }
+
+
+    
+    /* .card:hover {
+        transform: scale(1.02); Slight zoom on hover */
+    
+</style>
+<body>
+   <div style="margin: auto; width: 80%; padding: 20px;" class="button-container">
+    <h1 style="color: white">Random Posts</h1>
+    <button class="btn">Load New Random Post</button>
+   </div> 
+    <div class="containerPost">
+        
+    </div>
+</body>
+<script>
+  const loadData = ()=>{
+      fetch("https://jsonplaceholder.typicode.com/posts")
+    // this is a promise and it will return a response
+    //  object and we have to convert it into json format
+    .then((res)=>{
+        return res.json();
+    })
+    .then((data)=>{ 
+ const container =  document.querySelector(".containerPost");
+  container.innerHTML = "";
+         console.log(data);
+         const randomItem = [];
+         for(let counter =0;  counter< 5; counter++){
+            const rendomIndex = Math.floor(Math.random() * data.length)
+            
+            console.log("myrs",randomItem);
+            
+            randomItem.push(data[rendomIndex]);
+         }      
+         
+        randomItem.forEach((item)=>{
+            document.querySelector(".containerPost").innerHTML += `<div class="card">
+                <h3></h3>
+            <p> <b>Post title:</b> ${item.title}</p>
+            <p> <b>Post body:</b> ${item.body}</p>
+            </div>`
+        })
+            
+    })
+    .catch((err)=>{
+        console.log(err);
+    })
+
+}
+  loadData();
+document.querySelector(".btn").addEventListener("click", loadData);
+</script>
+</html>
