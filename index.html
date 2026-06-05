@@ -59,6 +59,10 @@
         margin-top: 20px;
         padding: 20px;
     }
+    .para{
+        text-align: center;
+        color: white;
+    }
 
 
     
@@ -71,6 +75,7 @@
     <h1 style="color: white">Random Posts</h1>
     <button class="btn">Load New Random Post</button>
    </div> 
+   <p class="para"></p>
     <div class="containerPost">
         
     </div>
@@ -103,13 +108,16 @@
             <p> <b>Post body:</b> ${item.body}</p>
             </div>`
         })
-            
-    })
+           
+        if(!data){
+            document.querySelector(".para").innerHTML = `<p>Loading...</p>`;
+        }
+
+    }) 
     .catch((err)=>{
         console.log(err);
     })
-
-}
+};
   loadData();
 document.querySelector(".btn").addEventListener("click", loadData);
 </script>
