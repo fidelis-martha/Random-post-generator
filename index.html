@@ -81,22 +81,26 @@
     </div>
 </body>
 <script>
+    
   const loadData = ()=>{
+    document.querySelector(".para").textContent = "Loading...";
       fetch("https://jsonplaceholder.typicode.com/posts")
     // this is a promise and it will return a response
     //  object and we have to convert it into json format
     .then((res)=>{
         return res.json();
     })
+    
     .then((data)=>{ 
  const container =  document.querySelector(".containerPost");
   container.innerHTML = "";
+  document.querySelector(".para").textContent = "";
          console.log(data);
+
+ 
          const randomItem = [];
          for(let counter =0;  counter< 5; counter++){
-            const rendomIndex = Math.floor(Math.random() * data.length)
-            
-            console.log("myrs",randomItem);
+            const rendomIndex = Math.floor(Math.random() * data.length);
             
             randomItem.push(data[rendomIndex]);
          }      
@@ -109,11 +113,10 @@
             </div>`
         })
            
-        if(!data){
-            document.querySelector(".para").innerHTML = `<p>Loading...</p>`;
-        }
+      
 
     }) 
+    
     .catch((err)=>{
         console.log(err);
     })
